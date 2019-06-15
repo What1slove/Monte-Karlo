@@ -1480,14 +1480,28 @@ var button = $("#result-button");
 var formulInput = $("#formul");
 var firstedgeInput = $("#edge1");
 var secondedgeInput = $("#edge2");
-var answerOutput = $("#answer");
+    var answerOutput = $("#answer");
 button.on("click", main);
 
 function main() {
     var Parser = require('expr-eval').Parser;
     var parser = new Parser();
     var expr = parser.parse(formulInput.val());
-    alert(expr.evaluate({ x: firstedgeInput.val() }));
-    
-}
+    var answ = MonteKarlo(expr, parseInt(firstedgeInput.val(), 10), parseInt(secondedgeInput.val(), 10));
+    answerOutput.text("Приближённое значение: "+answ);
+    }
+    function randomInRange(a, b) {
+        var r = Math.random();
+        r *= (b - a);
+        r += a;
+        return r;
+    }
+    function MonteKarlo(expr,a,b) {
+        var n = 10000;
+        var sum = 0;
+        for (var i = 0; i < n; i++) {
+            sum += expr.evaluate({ x: randomInRange( a, b) });
+        }
+        return sum * (b - a) / n;
+    }
 },{"expr-eval":1}]},{},[2]);
