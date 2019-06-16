@@ -1504,4 +1504,19 @@ function main() {
         }
         return sum * (b - a) / n;
     }
+    function maxminSearch(expr, a, b) {
+        var step = (b-a)/10000;
+        var max = expr.evaluate({ x: a });
+        var min = expr.evaluate({ x: a });
+        for (var i = a; i <= b; i += step) {
+            var val = expr.evaluate({ x: i })
+            if (val > max)
+                max = val;
+            if (val < min)
+                min = val;
+        }
+        max += max / 10;
+        min += min / 10;
+        return [max,min];
+    }
 },{"expr-eval":1}]},{},[2]);
