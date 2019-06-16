@@ -11,19 +11,88 @@
     <title>Web-Frontend12</title>
 </head>
 <body>
-    <form>
-        <div class="form-group">
-            <label for="exampleInputEmail1">Формула</label>
-            <input type="text" class="form-control" id="formul" placeholder="2*x+10">
+    <div class="jumbotron jumbotron-fluid text-center">
+
+            <h1>Вычисление определённых интегралов методами Монте-Карло</h1>
+       
+    </div>
+    <div class="container">
+        <p>
+            <a class="btn btn-primary" data-toggle="collapse" href="#legend" role="button" aria-expanded="false" aria-controls="collapseExample">
+                Правила описания формул
+            </a>
+        </p>
+        <div class="collapse" id="legend">
+            <div class="card card-body">
+                <h5 class="card-title">Операторы</h5>
+                <p class="card-text">
+                    <ul>
+                        <li>+ -Сложение</li>
+                        <li>- -Вычитание</li>
+                        <li>* -Умножение</li>
+                        <li>/ -Деление</li>
+                        <li>% -Остаток от деления</li>
+                        <li>^ -Возведение в степеь</li>
+                    </ul>
+                </p>
+            </div>
+            <div class="card card-body">
+                <h5 class="card-title">Унарные операторы</h5>
+                <p class="card-text">
+                    <ul>
+                        <li>x! -Факториал</li>
+                        <li>abs x -Модуль</li>
+                        <li>sqrt x -Корень</li>
+                        <li>sin x, cos x, tan x -Тригометрические функции</li>
+                        <li>asin x, acos x, atan x -Обратные тригометрические функции</li>
+                        <li>sinh x,asinh x.... -Гипорболические аналоги предидущих 2-х пунктов</li>
+                        <li>ln x, log10 x -Натуральный и десятичные логарифмы</li>
+                        <li>exp x -Экспонента</li>
+                        <li>floor x, round x, ceil x, trunc x -Функции округления до целого</li>
+                    </ul>
+                </p>
+            </div>
+            <div class="card card-body">
+                <h5 class="card-title">Предопределённые функции</h5>
+                <p class="card-text">
+                    <ul>
+                        <li>random(n) -случайное число от 0 до n</li>
+                        <li>min(a,b,…),max(a,b,…) -Минимальное/Максимальное число из набора</li>
+                        <li>pow(x, y) -Возведение в степень</li>
+                        <li>atan2(y, x)	 -Угол между (0,0) и (x,y) в радианах</li>
+                        <li>roundTo(x, n) -Округляет x до n цифр после запятой</li>
+                    </ul>
+                </p>
+            </div>
+            <h5>В описании функции может быть только одна переменная, x</h5>
         </div>
-        <div class="form-group">
-            <label for="edge1">Границы</label>
-            <input type="number" class="form-control" id="edge1" placeholder="0">
-            <input type="number" class="form-control" id="edge2" placeholder="1">
-        </div>
-        <p  id="result-button" class="btn btn-primary">Submit</p>
-    </form>
-    <p id="answer">Приближённое значение: </p>
+        <form>
+            <div class="form-group">
+                <label for="exampleInputEmail1">f(x)=</label>
+                <input type="text" class="form-control" id="formul" placeholder="2*x+10">
+            </div>
+            <div class="form-row">
+                <div class="form-group col">
+                    <label for="edge1">Нижняя граница</label>
+                    <input type="number" class="form-control" id="edge1" placeholder="0">
+                </div>
+                <div class="form-group col">
+                    <label for="edge1">Верхняя граница</label>
+                    <input type="number" class="form-control" id="edge2" placeholder="1">
+                </div>
+                <div class="form-group col">
+                    <label for="method">Метод</label>
+                    <select class="form-control" id="method">
+                        <option value="common">Обычный алгоритм</option>
+                        <option value="geom">Геометрический алгоритм</option>
+                    </select>
+                </div>
+            </div>
+            <p id="result-button" class="btn btn-primary">Submit</p>
+        </form>
+        <p id="answer">Приближённое значение: </p>
+    </div>
+
 
 
     <script src="/vendor.min.js"></script>

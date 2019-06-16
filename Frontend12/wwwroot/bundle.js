@@ -1481,15 +1481,21 @@ var formulInput = $("#formul");
 var firstedgeInput = $("#edge1");
 var secondedgeInput = $("#edge2");
     var answerOutput = $("#answer");
+    var methodInput = $("#method");
 button.on("click", main);
 
 function main() {
     var Parser = require('expr-eval').Parser;
     var parser = new Parser();
     var expr = parser.parse(formulInput.val());
-    //var answ = MonteKarloCommon(expr, parseInt(firstedgeInput.val(), 10), parseInt(secondedgeInput.val(), 10));
-    var answ = MonteKarloGeom(expr, parseInt(firstedgeInput.val(), 10), parseInt(secondedgeInput.val(), 10));
-            answerOutput.text("Приближённое значение: " + (Math.round(answ*100)/100 ));
+    alert(methodInput.val());
+    if (methodInput.val() == "common") {
+        var answ = MonteKarloCommon(expr, parseInt(firstedgeInput.val(), 10), parseInt(secondedgeInput.val(), 10));
+    }
+    else {
+        var answ = MonteKarloGeom(expr, parseInt(firstedgeInput.val(), 10), parseInt(secondedgeInput.val(), 10));
+    }
+    answerOutput.text("Приближённое значение: " + (Math.round(answ*100)/100 ));
     }
     function randomInRange(a, b) {
         var r = Math.random();
