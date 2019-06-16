@@ -1487,8 +1487,8 @@ function main() {
     var Parser = require('expr-eval').Parser;
     var parser = new Parser();
     var expr = parser.parse(formulInput.val());
-    var answ = MonteKarlo(expr, parseInt(firstedgeInput.val(), 10), parseInt(secondedgeInput.val(), 10));
-    answerOutput.text("Приближённое значение: "+answ);
+            var answ = MonteKarlo(expr, parseInt(firstedgeInput.val(), 10), parseInt(secondedgeInput.val(), 10));
+            answerOutput.text("Приближённое значение: " + (Math.round(answ*100)/100 ));
     }
     function randomInRange(a, b) {
         var r = Math.random();
