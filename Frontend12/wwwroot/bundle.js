@@ -1487,7 +1487,8 @@ function main() {
     var Parser = require('expr-eval').Parser;
     var parser = new Parser();
     var expr = parser.parse(formulInput.val());
-            var answ = MonteKarlo(expr, parseInt(firstedgeInput.val(), 10), parseInt(secondedgeInput.val(), 10));
+    //var answ = MonteKarloCommon(expr, parseInt(firstedgeInput.val(), 10), parseInt(secondedgeInput.val(), 10));
+    var answ = MonteKarloGeom(expr, parseInt(firstedgeInput.val(), 10), parseInt(secondedgeInput.val(), 10));
             answerOutput.text("Приближённое значение: " + (Math.round(answ*100)/100 ));
     }
     function randomInRange(a, b) {
@@ -1496,13 +1497,45 @@ function main() {
         r += a;
         return r;
     }
-    function MonteKarlo(expr,a,b) {
+    function MonteKarloCommon(expr,a,b) {
         var n = 10000;
         var sum = 0;
         for (var i = 0; i < n; i++) {
             sum += expr.evaluate({ x: randomInRange( a, b) });
         }
         return sum * (b - a) / n;
+    }
+    function MonteKarloGeom(expr, a, b) {
+        var n = 10000;
+        var maxmin = maxminSearch(expr, a, b);
+        var max = maxmin[0];
+        var min = maxmin[1];
+        var inIntegral = 0;
+        var PlusIntegral, MinusIntegral;
+        for (var i = 0; i < n; i++) {
+            ranx = randomInRange(a, b);
+            rany = randomInRange(0, max);
+            if (rany <= expr.evaluate({ x: ranx })) {
+                inIntegral++;
+            }
+        }
+        PlusIntegral = ((b - a) * max) * (inIntegral / n);
+        if (min < 0) {
+            var inIntegral = 0;
+            for (var i = 0; i < n; i++) {
+                ranx = randomInRange(a, b);
+                rany = randomInRange(min, 0);
+                if (rany >= expr.evaluate({ x: ranx })) {
+                    inIntegral++;
+                }
+            }
+            MinusIntegral = ((b - a) * min) * (inIntegral / n);
+        }
+        else {
+            MinusIntegral = 0;
+        }
+
+        return PlusIntegral + MinusIntegral;
     }
     function maxminSearch(expr, a, b) {
         var step = (b-a)/10000;
