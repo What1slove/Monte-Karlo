@@ -1482,19 +1482,51 @@ var firstedgeInput = $("#edge1");
 var secondedgeInput = $("#edge2");
     var answerOutput = $("#answer");
     var methodInput = $("#method");
+    var alertOutput = $("#alertfield");
 button.on("click", main);
 
 function main() {
     var Parser = require('expr-eval').Parser;
     var parser = new Parser();
     var expr = parser.parse(formulInput.val());
-    if (methodInput.val() == "common") {
-        var answ = MonteKarloCommon(expr, parseInt(firstedgeInput.val(), 10), parseInt(secondedgeInput.val(), 10));
+    if (isDataCorrect(expr)) {
+        if (methodInput.val() == "common") {
+            var answ = MonteKarloCommon(expr, parseInt(firstedgeInput.val(), 10), parseInt(secondedgeInput.val(), 10));
+        }
+        else {
+            var answ = MonteKarloGeom(expr, parseInt(firstedgeInput.val(), 10), parseInt(secondedgeInput.val(), 10));
+        }
+        answerOutput.text("Приближённое значение: " + (Math.round(answ * 100) / 100));
     }
-    else {
-        var answ = MonteKarloGeom(expr, parseInt(firstedgeInput.val(), 10), parseInt(secondedgeInput.val(), 10));
+    
     }
-    answerOutput.text("Приближённое значение: " + (Math.round(answ*100)/100 ));
+
+
+
+
+
+    function isDataCorrect(expr) {
+        var alerttext = "";
+        if (firstedgeInput.val() == "") {
+            alerttext+="Не введена нижняя граница <br />"
+        }
+        if (secondedgeInput.val() == "") {
+            alerttext += "Не введена верхняя граница <br />"
+        }
+        if (firstedgeInput.val() > secondedgeInput.val()) {
+            alerttext += "Некорректные границы интегрирования <br />"
+        }
+        if (expr.variables().toString() != "x") {
+            alerttext += "Ошибка в указании переменной";
+        }
+        if (alerttext == "") {
+            return true;
+        }
+        else {
+            alertOutput.html(alerttext);
+            return false;
+        }
+   
     }
     function randomInRange(a, b) {
         var r = Math.random();
