@@ -1488,7 +1488,6 @@ function main() {
     var Parser = require('expr-eval').Parser;
     var parser = new Parser();
     var expr = parser.parse(formulInput.val());
-    alert(methodInput.val());
     if (methodInput.val() == "common") {
         var answ = MonteKarloCommon(expr, parseInt(firstedgeInput.val(), 10), parseInt(secondedgeInput.val(), 10));
     }
