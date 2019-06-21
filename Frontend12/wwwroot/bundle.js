@@ -1488,16 +1488,23 @@ button.on("click", main);
 function main() {
     var Parser = require('expr-eval').Parser;
     var parser = new Parser();
-    var expr = parser.parse(formulInput.val());
-    if (isDataCorrect(expr)) {
-        if (methodInput.val() == "common") {
-            var answ = MonteKarloCommon(expr, parseInt(firstedgeInput.val(), 10), parseInt(secondedgeInput.val(), 10));
+    try {
+        var expr = parser.parse(formulInput.val());
+        if (isDataCorrect(expr)) {
+            if (methodInput.val() == "common") {
+                var answ = MonteKarloCommon(expr, parseInt(firstedgeInput.val(), 10), parseInt(secondedgeInput.val(), 10));
+            }
+            else {
+                var answ = MonteKarloGeom(expr, parseInt(firstedgeInput.val(), 10), parseInt(secondedgeInput.val(), 10));
+            }
+            answerOutput.text("Приближённое значение: " + (Math.round(answ * 100) / 100));
         }
-        else {
-            var answ = MonteKarloGeom(expr, parseInt(firstedgeInput.val(), 10), parseInt(secondedgeInput.val(), 10));
-        }
-        answerOutput.text("Приближённое значение: " + (Math.round(answ * 100) / 100));
+    } catch (e) {
+
+        alertOutput.html("Ошибка в формуле:  "  + e.message);
+
     }
+    
     
     }
 
